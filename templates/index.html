@@ -226,7 +226,7 @@ var myChart = new Chart(ctx, {
         labels: {{ state_list|tojson }},
         datasets: [{
             label: '# of Votes',
-            data: {{ cured_data|tojson }},
+            data: {{ death_data|tojson }},
             backgroundColor: {{ color|tojson }},
             borderWidth: 1
         }]
