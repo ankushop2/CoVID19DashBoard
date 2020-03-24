@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{{ title }}</title>		
+		<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon/favicon.ico') }}" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<link href="{{ url_for('static', filename='css/materialize.min.css') }}" rel="stylesheet" media="screen">
+		<link href="{{ url_for('static', filename='js/materialize.js') }}" rel="stylesheet" media="screen">		
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js'></script>
+		<link rel='stylesheet' href='https://unpkg.com/emoji.css/dist/emoji.min.css'>
+		
+		<style type="text/css">
+			.nav-wrapper{
+				background: linear-gradient(90deg, rgba(255,153,51,1) 0%, rgba(255,255,255,1) 50%, rgba(19,136,8,1) 100%);  		
+			}er:2px solid #000000;
+			}
+			.center-cols > .col {
+			  float:none; /* disable the float */
+			  display: inline-block; /* make blocks inline-block */
+			  text-align: initial; /* restore text-align to default */
+			}/*
+			#custom-height{
+				height: 400px;
+			}*/
+			#flex":{
+				display: flex;
+			}
+		</style>
+	</head>
+	<body class="amber lighten-3">
+		<nav>
+		<div class="nav-wrapper">
+		  <a href="#" class="brand-logo center"><span class="light-blue-text text-darken-4">CoVID-19 India Dashboard</span></a>
+		</div>
+		</nav>
+		<div class="row center-align" style="margin-top:20">
+	      <div class="col s12 m4">
+			<div class="card blue-grey darken-1">
+			        <div class="card-content white-text">
+			          <span class="card-title">Total Cases in India</span>
+			          <h2><span class="num">{{ confirmed_india+confirmed_foreign-confirmed_deaths-confirmed_cured }}</span></h2>
+			        </div>
+			      </div>
+	      </div>
+	      <div class="col s12 m4">
+			<div class="card blue-grey darken-1">
+			        <div class="card-content white-text">
+			          <span class="card-title">Total Cured in India</span>
+			          <h2><span class="num">{{ confirmed_cured }}</span></h2>
+			        </div>
+			      </div>
+	      </div>
+	      <div class="col s12 m4">
+			<div class="card blue-grey darken-1">
+			        <div class="card-content white-text">
+			          <span class="card-title">Total Deaths in India</span>
+			          <h2><span class="num">{{ confirmed_deaths }}</span></h2>
+			        </div>
+			      </div>
+	      </div>
+    	</div>
+    	<div class="row center-cols center-align" id="flex">
+	      <div class="col s12 m6">
+			<div class="card blue-grey darken-1 medium" >
+			        <div class="card-content white-text">
+			          <span class="card-title">Predications for the next 5 days</span>
+			          <table class="table responsive centered">
+			          	<thead class="center-align">
+			          		<tr>
+			          			<td>Dates</td>
+			          			<td>Predicted Number</td>
+			          		</tr>
+			          	</thead>
+			          	<tbody class="center-align">
+			          	{% for row_index in range(dates|count) %}
+   							 <tr>
+						      <td>{{ dates[row_index].strftime('%d/%m/%Y') }}</td>
+						      <td>{{ days_pred[row_index] }}</td>
+						    </tr>
+						{% endfor %}
+						</tbody>
+			          </table>
+			        </div>
+			      </div>
+	      </div>
+	      <div class="col s12 m6">
+			<div class="card blue-grey darken-1 medium">
+			        <div class="card-content white-text">
+			          <span class="card-title">Actual vs. Predicted</span>
+			          	 <canvas id="barandline" width="600" height="270%"></canvas>
+			        </div>
+			      </div>
+	      </div>
+    	</div>
+    	<div class="row center-align">
+	      <div class="col s12 m4 chart-container">
+			<div class="card blue-grey darken-1">
+			        <div class="card-content white-text">
+			          <span class="card-title">Total Cases in India(state Wise)</span>
+			              	<canvas id="cases_chart" width="600" height="400"></canvas>
+			        </div>
+			      </div>
+	      </div>
+	      <div class="col s12 m4">
+			<div class="card blue-grey darken-1">
+			        <div class="card-content white-text center-align">
+			          <span class="card-title">Total Cured in India(State Wise)</span>
+			        	<canvas id="cured_chart" width="600" height="400"></canvas>
+			      </div>
+	      </div>
+	  </div>
+	      <div class="col s12 m4">
+			<div class="card blue-grey darken-1">
+			        <div class="card-content white-text center-align">
+			          <span class="card-title">Total Deaths in India(State Wise)</span>
+			        	<canvas id="death_chart" width="600" height="400"></canvas>
+			      </div>
+	      </div>
+	  </div>
+</div>
+<footer class="page-footer blue-grey darken-2">
+          <div class="container">
+            <div class="row">
+              <div class="col s12 m6">
+                <h5 class="white-text center-align">Data Sources</h5>
+                <ul>
+                	<li>RealTime Data: <a href="https://www.mohfw.gov.in/" target="_blank">Ministry of Health and Family Welfare</a></li>
+                	<li>Historic Data: <a href="https://github.com/pomber/covid19" target="_blank">GitHub</a></li>
+                </ul>
+              </div>
+              <div class="col s12 m6">
+                <h5 class="white-text center-align">Be Safe!</h5>
+                <ul>
+                	<li>Social Distancing is the key!<span class="ec ec-key"></span></li>
+                	<li>Wash Hands, Sanitize your surroundings.<span class="ec ec-wave"></span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright blue-grey darken-4">
+            <div class="container">
+            Made during Quarantine by Ankush Arunkumar<span class="ec ec-space-invader"></span>
+            <a class="grey-text text-lighten-4 right" href="#!">Ofc, it's Open Source!<span class='ec ec-sparkling-heart'></span></a>
+            </div>
+          </div>
+ 
+	</body>
+	<script type="text/javascript">
+			$('.num').each(function () {
+		  var $this = $(this);
+		  jQuery({ Counter: 0 }).animate({ Counter: $this.text() }, {
+		    duration: 2000,
+		    easing: 'swing',
+		    step: function () {
+		      $this.text(Math.ceil(this.Counter));
+		    }
+		  });
+		});
+	</script>
+<script>
+var ctx = document.getElementById('cases_chart');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: {{ state_list|tojson }},
+        datasets: [{
+            label: '# of Votes',
+            data: {{ confirmed_data|tojson }},
+            backgroundColor:{{ color|tojson }},
+            borderWidth: 1
+        }]
+    },
+    options: {
+        legend: {
+	    	display: false
+	    }
+    }
+});
+</script>
+<script>
+var ctx = document.getElementById('cured_chart');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: {{ state_list|tojson }},
+        datasets: [{
+            label: '# of Votes',
+            data: {{ cured_data|tojson }},
+            backgroundColor: {{ color|tojson }},
+            borderWidth: 1
+        }]
+    },
+    options: {
+        legend: {
+	    	display: false
+	    }
+    }
+	    
+});
+</script>
+<script>
+var ctx = document.getElementById('death_chart');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: {{ state_list|tojson }},
+        datasets: [{
+            label: '# of Votes',
+            data: {{ cured_data|tojson }},
+            backgroundColor: {{ color|tojson }},
+            borderWidth: 1
+        }]
+    },
+    options: {
+        legend: {
+	    	display: false
+	    }
+    }
+	    
+});
+</script>
+<script>
+var ctx = document.getElementById('barandline');
+var myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: {{ x }},
+    datasets: [{ 
+        data: {{ y }},
+        label: "Actual",
+        borderColor: "#ff0000",
+        fill: false,
+        pointRadius: 0
+      }, { 
+        data: {{ y_pred }},
+        label: "Predicted",
+        borderColor: "#0000ff",
+        fill: false,
+        pointRadius: 0
+      }
+    ]
+  },
+  options: {
+  	responsive: true,
+  	legend: {
+	    	display: true,
+	    	position: 'bottom',
+	    	labels: {
+        		fontColor: "#ffffff",
+      		}
+	    },
+    scales:{
+    	xAxes:[{
+    		ticks:{
+    			display: false
+    		}
+    	}],
+    	yAxes:[{
+    		ticks:{
+    			min:0,
+    			fontColor: "white"
+    		}
+    	}]
+    }
+  }
+});
+</script>
+</html>
