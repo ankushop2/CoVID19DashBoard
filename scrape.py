@@ -115,9 +115,10 @@ def scrape_now():
 				confirmed_cured = confirmed_cured + int( (tds[9]).get_text() )
 				data["cured"] = int( (tds[9]).get_text() )
 				cured_data.append(int( (tds[9]).get_text() ))
-				confirmed_deaths = confirmed_deaths + int( (tds[11]).get_text() )
-				data["death"] = int( (tds[11]).get_text() )
-				death_data.append(int( (tds[11]).get_text() ))
+				temp = re.findall(r'\d+', (tds[11]).get_text())[0]
+				confirmed_deaths = confirmed_deaths + int(temp)
+				data["death"] = int( temp )
+				death_data.append(int( temp ))
 				actual_data[state] = data
 
 		return state_list, confirmed_data, cured_data, death_data, actual_data, confirmed_india, confirmed_foreign, confirmed_cured, confirmed_deaths
