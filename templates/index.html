@@ -14,14 +14,18 @@
 		
 		<style type="text/css">
 			.nav-wrapper{
-				background: linear-gradient(90deg, rgba(255,153,51,1) 0%, rgba(255,255,255,1) 50%, rgba(19,136,8,1) 100%);
+				background: linear-gradient(90deg, rgba(255,153,51,1) 0%, rgba(255,255,255,1) 50%, rgba(19,136,8,1) 100%);  		
+			}er:2px solid #000000;
 			}
 			.center-cols > .col {
 			  float:none; /* disable the float */
 			  display: inline-block; /* make blocks inline-block */
 			  text-align: initial; /* restore text-align to default */
-			}
-			#flex {
+			}/*
+			#custom-height{
+				height: 400px;
+			}*/
+			#flex":{
 				display: flex;
 			}
 		</style>
@@ -32,7 +36,7 @@
 		  <a href="#" class="brand-logo center"><span class="light-blue-text text-darken-4">CoVID-19 India Dashboard</span></a>
 		</div>
 		</nav>
-		<div class="row center-align" style="margin-top: 1em; margin-bottom: 0px;">
+		<div class="row center-align" style="margin-top:20px">
 	      <div class="col s12 m4">
 			<div class="card grey darken-4">
 			        <div class="card-content white-text">
@@ -58,7 +62,7 @@
 			      </div>
 	      </div>
     	</div>
-    	<div class="row center-cols center-align" id="flex" style="margin-bottom: 0px;">
+    	<div class="row center-cols center-align" id="flex">
 	      <div class="col s12 m6">
 			<div class="card grey darken-4 medium" >
 			        <div class="card-content white-text">
@@ -66,8 +70,8 @@
 			          <table class="table responsive centered">
 			          	<thead class="center-align">
 			          		<tr>
-			          			<td class="center-align" style="font-weight: 700;">Dates</td>
-			          			<td class="center-align" style="font-weight: 700;">Predicted Number</td>
+			          			<td>Dates</td>
+			          			<td>Predicted Number</td>
 			          		</tr>
 			          	</thead>
 			          	<tbody class="center-align">
@@ -117,7 +121,7 @@
 	      </div>
 	  </div>
 </div>
-<footer class="page-footer grey darken-3">
+<footer class="page-footer blue-grey darken-3">
           <div class="container">
             <div class="row">
               <div class="col s12 m6">
