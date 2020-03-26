@@ -70,11 +70,11 @@ def scrape_now():
 	confirmed_deaths = 0
 	#get to parsing
 	soup = BeautifulSoup(txt, 'html.parser')
-	cases = soup.find(id="cases")
-	tables = cases.find_all("tbody")
+	#cases = soup.find(id="cases")
+	tables = soup.find_all("tbody")
 	
 	if len(tables) > 0:
-		table = tables[0]
+		table = tables[7]
 		#print(table)
 		first_row = False
 		for tr in list(table.children):
@@ -85,6 +85,12 @@ def scrape_now():
 					continue
 
 				tds = list(tr.children)
+
+				if len(tds) > 1:
+					pass
+				else:
+					continue
+				#print(tds[11])
 
 				if "Total number of confirmed cases in India" == tds[1].get_text():
 					continue
@@ -97,10 +103,10 @@ def scrape_now():
 				state_code = ""
 				if state in states :
 					state_code = (states[state]).lower()
-				else:
-					sendMessage("ERROR WRONG STATE",  "Not found: {0}".format(state))
-					print("------> Wrong state {0}".format(state))
-					return 0
+				# else:
+				# 	sendMessage("ERROR WRONG STATE",  "Not found: {0}".format(state))
+				# 	print("------> Wrong state {0}".format(state))
+				# 	return 0
 
 				
 				data = {}
@@ -115,10 +121,10 @@ def scrape_now():
 				confirmed_cured = confirmed_cured + int( (tds[9]).get_text() )
 				data["cured"] = int( (tds[9]).get_text() )
 				cured_data.append(int( (tds[9]).get_text() ))
-				temp = re.findall(r'\d+', (tds[11]).get_text())[0]
-				confirmed_deaths = confirmed_deaths + int(temp)
-				data["death"] = int( temp )
-				death_data.append(int( temp ))
+				#temp = re.findall(r'\d+', (tds[11]).get_text())[0]
+				confirmed_deaths = confirmed_deaths + int((tds[11]).get_text())
+				data["death"] = int( (tds[11]).get_text() )
+				death_data.append(int( (tds[11]).get_text() ))
 				actual_data[state] = data
 
 		return state_list, confirmed_data, cured_data, death_data, actual_data, confirmed_india, confirmed_foreign, confirmed_cured, confirmed_deaths
