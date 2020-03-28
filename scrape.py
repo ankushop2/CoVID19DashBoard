@@ -74,7 +74,7 @@ def scrape_now():
 	tables = soup.find_all("tbody")
 	
 	if len(tables) > 0:
-		table = tables[7]
+		table = tables[9]
 		#print(table)
 		first_row = False
 		for tr in list(table.children):
