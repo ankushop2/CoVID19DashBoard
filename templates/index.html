@@ -41,7 +41,7 @@
 			<div class="card grey darken-4">
 			        <div class="card-content white-text">
 			          <span class="card-title">Total Active Cases in India</span>
-			          <h2><span class="num">{{ confirmed_india+confirmed_foreign-confirmed_deaths-confirmed_cured }}</span></h2>
+			          <h2><span class="num">{{ stats_list[0] }}</span></h2>
 			        </div>
 			      </div>
 	      </div>
@@ -49,7 +49,7 @@
 			<div class="card grey darken-4">
 			        <div class="card-content white-text">
 			          <span class="card-title">Total Cured in India</span>
-			          <h2><span class="num">{{ confirmed_cured }}</span></h2>
+			          <h2><span class="num">{{ stats_list[1] }}</span></h2>
 			        </div>
 			      </div>
 	      </div>
@@ -57,7 +57,7 @@
 			<div class="card grey darken-4">
 			        <div class="card-content white-text">
 			          <span class="card-title">Total Deaths in India</span>
-			          <h2><span class="num">{{ confirmed_deaths }}</span></h2>
+			          <h2><span class="num">{{ stats_list[2] }}</span></h2>
 			        </div>
 			      </div>
 	      </div>
@@ -185,7 +185,7 @@ var myChart = new Chart(ctx, {
         labels: {{ state_list|tojson }},
         datasets: [{
             label: '# of Votes',
-            data: {{ confirmed_data|tojson }},
+            data: {{ confirmed_list|tojson }},
             backgroundColor:{{ color|tojson }},
             borderWidth: 1
         }]
@@ -205,7 +205,7 @@ var myChart = new Chart(ctx, {
         labels: {{ state_list|tojson }},
         datasets: [{
             label: '# of Votes',
-            data: {{ cured_data|tojson }},
+            data: {{ cured_list|tojson }},
             backgroundColor: {{ color|tojson }},
             borderWidth: 1
         }]
@@ -226,7 +226,7 @@ var myChart = new Chart(ctx, {
         labels: {{ state_list|tojson }},
         datasets: [{
             label: '# of Votes',
-            data: {{ death_data|tojson }},
+            data: {{ death_list|tojson }},
             backgroundColor: {{ color|tojson }},
             borderWidth: 1
         }]

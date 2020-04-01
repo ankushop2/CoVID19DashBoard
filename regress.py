@@ -85,5 +85,5 @@ def final():
     y = np.array(india_data)
     model = train_model(x, y,5)
     y_pred, days_pred, actual_poly = (print_stats(model, x, y, 5, 5))
-    return x, y, y_pred, days_pred, actual_poly
+    return x, y, y_pred, days_pred
 
